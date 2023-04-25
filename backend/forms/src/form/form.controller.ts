@@ -7,6 +7,11 @@ import { HttpException } from '@nestjs/common/exceptions';
 export class FormController {
   constructor(private readonly formService: FormService) {}
 
+  @Get()
+  getStructure() {
+    return this.formService.getStructure();
+  }
+
   @Post()
   async saveData(@Body() FormDto: FormDto) {
     try {
@@ -21,10 +26,5 @@ export class FormController {
         { cause: err },
       );
     }
-  }
-
-  @Get()
-  getStructure() {
-    return this.formService.getStructure();
   }
 }
