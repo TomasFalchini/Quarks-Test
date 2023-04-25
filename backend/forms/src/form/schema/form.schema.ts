@@ -6,17 +6,45 @@ export type FormDocument = Form & Document;
 
 @Schema()
 export class Form {
-  @Prop()
+  @Prop({ required: true, unique: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
   lastname: string;
 
-  @Prop()
+  @Prop({ required: true })
   age: number;
 
-  @Prop()
+  @Prop({ required: true })
   birthday: Date;
 }
 
 export const FormSchema = SchemaFactory.createForClass(Form);
+
+/* 
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "age": {
+      "type": "number"
+    },
+    "birthday": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "name",
+    "lastname",
+    "age",
+    "birthday"
+  ]
+}
+
+*/
