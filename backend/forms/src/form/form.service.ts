@@ -7,7 +7,7 @@ export class FormService {
     return 'This action adds a new form';
   }
 
-  getStructure(FormDto: FormDto) {
+  getStructure() {
     return `This action returns all form`;
   }
 }
