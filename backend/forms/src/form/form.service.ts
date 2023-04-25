@@ -8,11 +8,13 @@ import { FormDocument } from './schema/form.schema';
 export class FormService {
   constructor(@InjectModel('formA') private formModel: Model<FormDocument>) {}
 
-  saveData(FormDto: FormDto) {
-    return 'This action adds a new form';
+  async saveData(FormDto: FormDto) {
+    const data = await this.formModel.create(FormDto);
+    await data.save();
+    return 'This action save the form data in the database';
   }
 
   getStructure() {
-    return `This action returns all form`;
+    return this.formModel.findOne({ name: 'Default' });
   }
 }
