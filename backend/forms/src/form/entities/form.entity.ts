@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 
 import { Document } from 'mongoose';
 
@@ -20,6 +21,8 @@ export class Form {
 }
 
 export const FormSchema = SchemaFactory.createForClass(Form);
+
+export const FormSchemaJson = validationMetadatasToSchemas();
 
 /* 
 {
