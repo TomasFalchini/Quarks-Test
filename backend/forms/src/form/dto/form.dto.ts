@@ -7,7 +7,9 @@ import {
   Max,
   Min,
   MinDate,
+  IsEmpty,
 } from 'class-validator';
+import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 
 export class FormDto {
   @IsNotEmpty()
@@ -23,8 +25,6 @@ export class FormDto {
   @Max(100)
   @Min(1)
   age: number;
-
-  @IsDate()
-  @MinDate(new Date('01/01/1924'))
-  birthday: Date;
 }
+
+export const FormSchemaJson = validationMetadatasToSchemas();

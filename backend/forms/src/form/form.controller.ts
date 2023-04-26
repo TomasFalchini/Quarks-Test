@@ -20,7 +20,7 @@ export class FormController {
       throw new HttpException(
         {
           status: HttpStatus.BAD_REQUEST,
-          error: 'There must be something bad with the data you hace completed',
+          error: err,
         },
         HttpStatus.BAD_REQUEST,
         { cause: err },

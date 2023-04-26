@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 
 import { Document } from 'mongoose';
 
@@ -15,14 +14,9 @@ export class Form {
 
   @Prop({ required: true })
   age: number;
-
-  @Prop({ required: true })
-  birthday: Date;
 }
 
 export const FormSchema = SchemaFactory.createForClass(Form);
-
-export const FormSchemaJson = validationMetadatasToSchemas();
 
 /* 
 {
