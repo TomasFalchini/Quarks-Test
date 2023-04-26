@@ -1,14 +1,16 @@
+import FormSection from '@/components/FormSection'
+
 export default function FormPageLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <section>
-      {/* Include shared UI here e.g. a header or sidebar */}
-      <nav></nav>
-
+    <div>
+      <div>
+        <FormSection />
+      </div>
       {children}
-    </section>
+    </div>
   )
 }
