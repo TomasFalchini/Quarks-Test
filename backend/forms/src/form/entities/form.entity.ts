@@ -17,31 +17,3 @@ export class Form {
 }
 
 export const FormSchema = SchemaFactory.createForClass(Form);
-
-/* 
-{
-  "type": "object",
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "lastname": {
-      "type": "string"
-    },
-    "age": {
-      "type": "number"
-    },
-    "birthday": {
-      "type": "string",
-      "format": "date"
-    }
-  },
-  "required": [
-    "name",
-    "lastname",
-    "age",
-    "birthday"
-  ]
-}
-
-*/

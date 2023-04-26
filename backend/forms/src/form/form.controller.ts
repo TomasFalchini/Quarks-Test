@@ -10,6 +10,7 @@ import {
 import { FormService } from './form.service';
 import { FormDto } from './dto/form.dto';
 import { HttpException } from '@nestjs/common/exceptions';
+import { query } from 'express';
 
 @Controller('form')
 export class FormController {
@@ -21,8 +22,16 @@ export class FormController {
   }
 
   @Get()
-  queryFormWithFilters(@Query() AllFilters: Partial<FormDto>) {
-    return this.formService.queryFormWithFilters(AllFilters);
+  queryFormWithFilters(@Query() AllFilters: any) {
+    const { name, age, lastname }: Partial<FormDto> = AllFilters;
+    const query: Partial<FormDto> = {};
+    name && (query.name = name);
+    age && (query.age = age);
+    lastname && (query.lastname = lastname);
+
+    return this.formService.queryFormWithFilters({
+      ...query,
+    });
   }
 
   @Post()
