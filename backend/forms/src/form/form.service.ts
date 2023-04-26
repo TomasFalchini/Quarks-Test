@@ -23,7 +23,7 @@ export class FormService {
     return 'This action save the form data in the database';
   }
 
-  async queryFormWithFilters(querys: any[]) {
+  async queryFormWithFilters(querys: Partial<FormDto>) {
     const docs = await this.formModel.find({ ...querys });
 
     return docs;

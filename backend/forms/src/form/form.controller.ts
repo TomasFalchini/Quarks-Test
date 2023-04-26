@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, HttpStatus, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpStatus,
+  Query,
+  Param,
+} from '@nestjs/common';
 import { FormService } from './form.service';
 import { FormDto } from './dto/form.dto';
 import { HttpException } from '@nestjs/common/exceptions';
@@ -7,9 +15,14 @@ import { HttpException } from '@nestjs/common/exceptions';
 export class FormController {
   constructor(private readonly formService: FormService) {}
 
-  @Get()
-  getStructure(@Query('formType') formType: string) {
+  @Get(':formType')
+  getStructure(@Param('formType') formType: string) {
     return this.formService.getStructure(formType);
+  }
+
+  @Get()
+  queryFormWithFilters(@Query() AllFilters: Partial<FormDto>) {
+    return this.formService.queryFormWithFilters(AllFilters);
   }
 
   @Post()
