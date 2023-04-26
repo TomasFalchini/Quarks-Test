@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpStatus, Query } from '@nestjs/common';
 import { FormService } from './form.service';
 import { FormDto } from './dto/form.dto';
 import { HttpException } from '@nestjs/common/exceptions';
@@ -8,8 +8,8 @@ export class FormController {
   constructor(private readonly formService: FormService) {}
 
   @Get()
-  getStructure() {
-    return this.formService.getStructure();
+  getStructure(@Query('formType') formType: string) {
+    return this.formService.getStructure(formType);
   }
 
   @Post()

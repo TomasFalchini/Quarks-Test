@@ -3,9 +3,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FormModule } from './form/form.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import config from 'config/config';
 
 @Module({
-  imports: [MongooseModule.forRoot('URI MONGO DB en .ENV'), FormModule],
+  imports: [
+    MongooseModule.forRoot(
+      `mongodb+srv://usuariofalchini:${config.dbConnectionPassword}@cluster1.rlhub0y.mongodb.net/?retryWrites=true&w=majorit`,
+    ),
+    FormModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
