@@ -4,7 +4,7 @@ const fetcher: Fetcher = (...args: Parameters<typeof fetch>) =>
   fetch(...args).then((res) => res.json())
 
 export default function useForms() {
-  const { data, error, isLoading } = useSWR('/api/user', fetcher)
+  const { data, error, isLoading } = useSWR('/api/form', fetcher)
 
   return {
     data,
