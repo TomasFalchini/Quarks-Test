@@ -28,3 +28,7 @@ export class FormDto {
 }
 
 export const FormSchemaJson = validationMetadatasToSchemas();
+
+export const isAKeyOfFormDto = (key: string) => {
+  return key === 'name' || key === 'lastname' || key === 'age';
+};

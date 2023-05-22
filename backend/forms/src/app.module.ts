@@ -6,12 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import config from 'src/config/config';
 
 @Module({
-  imports: [
-    MongooseModule.forRoot(
-      `mongodb+srv://usuariofalchini:${config.dbConnectionPassword}@cluster1.rlhub0y.mongodb.net`,
-    ),
-    FormModule,
-  ],
+  imports: [MongooseModule.forRoot(config.dbConnection), FormModule],
   controllers: [AppController],
   providers: [AppService],
 })

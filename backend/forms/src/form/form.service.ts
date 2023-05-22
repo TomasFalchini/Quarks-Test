@@ -1,31 +1,49 @@
 import { Injectable } from '@nestjs/common';
 import { FormDto, FormSchemaJson } from './dto/form.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, QueryOptions, Document, FilterQuery, Types } from 'mongoose';
 import { FormDocument } from './entities/form.entity';
 
 @Injectable()
 export class FormService {
   constructor(@InjectModel('formA') private formModel: Model<FormDocument>) {}
 
-  getStructure(formType: string) {
+  getFormStructure(formType: string) {
     switch (formType) {
       case 'A':
-        return FormSchemaJson;
+        return FormSchemaJson.FormDto;
       case 'B':
         return;
     }
   }
 
-  async saveData(FormDto: FormDto) {
-    const data = await this.formModel.create(FormDto);
-    await data.save();
-    return 'This action save the form data in the database';
+  async saveData(formDto: FormDto, id?: string) {
+    const query: FilterQuery<FormDto> = { _id: id ? id : new Types.ObjectId() };
+    const options: QueryOptions<FormDto> = {
+      upsert: true,
+      new: true,
+      setDefaultsOnInsert: true,
+      runValidators: true,
+    };
+    const response: Document<FormDto> | null =
+      await this.formModel.findOneAndUpdate(query, formDto, options);
+
+    if (!response) {
+      return null;
+    }
+    return response._id;
   }
 
   async queryFormWithFilters(querys: Partial<FormDto>) {
-    const docs = await this.formModel.find({ ...querys });
-
-    return docs;
+    const query: QueryOptions<FormDto> = {
+      ...querys,
+    };
+    const docs: Document<FormDto>[] = await this.formModel
+      .find(query)
+      .select('-__v -_id');
+    if (docs.length) {
+      return docs.map((d) => d.toObject());
+    }
+    return [];
   }
 }

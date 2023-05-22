@@ -1,8 +1,8 @@
-import Form from '@/components/Form'
+import Form from "@/components/Form"
 
 export default function FormPage() {
   return (
-    <div className='container px-6 mx-auto'>
+    <div className="container flex flex-col items-center justify-around px-6 mx-auto">
       <Form />
     </div>
   )

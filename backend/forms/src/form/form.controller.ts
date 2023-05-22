@@ -8,9 +8,8 @@ import {
   Param,
 } from '@nestjs/common';
 import { FormService } from './form.service';
-import { FormDto } from './dto/form.dto';
+import { FormDto, isAKeyOfFormDto } from './dto/form.dto';
 import { HttpException } from '@nestjs/common/exceptions';
-import { query } from 'express';
 
 @Controller('form')
 export class FormController {
@@ -18,20 +17,20 @@ export class FormController {
 
   @Get(':formType')
   getStructure(@Param('formType') formType: string) {
-    return this.formService.getStructure(formType);
+    return this.formService.getFormStructure(formType);
   }
 
   @Get()
-  queryFormWithFilters(@Query() AllFilters: any) {
-    const { name, age, lastname }: Partial<FormDto> = AllFilters;
-    const query: Partial<FormDto> = {};
-    name && (query.name = name);
-    age && (query.age = age);
-    lastname && (query.lastname = lastname);
+  queryFormWithFilters(@Query() filters: Record<string, any>) {
+    const query: Record<string, any> = {};
 
-    return this.formService.queryFormWithFilters({
-      ...query,
+    Object.entries(filters).forEach(([key, value]) => {
+      if (isAKeyOfFormDto(key)) {
+        query[key] = value;
+      }
     });
+
+    return this.formService.queryFormWithFilters(query);
   }
 
   @Post()
@@ -41,11 +40,11 @@ export class FormController {
     } catch (err) {
       throw new HttpException(
         {
-          status: HttpStatus.BAD_REQUEST,
+          statusCode: HttpStatus.BAD_REQUEST,
           error: err,
+          message: err.message,
         },
         HttpStatus.BAD_REQUEST,
-        { cause: err },
       );
     }
   }
