@@ -1,0 +1,16 @@
+{
+  "name": "formsclientandserver",
+  "version": "0.1.0",
+  "description": "API and Client",
+  "private": true,
+  "author": "Tomás Falchini",
+  "scripts": {
+    "server": "npm run --prefix ./apps/server start:dev",
+    "client": "npm run --prefix ./apps/client dev",
+    "client-and-server": "concurrently \"npm run --server\" \"npm run --client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  },
+  "license": "ISC"
+}

@@ -16,12 +16,18 @@ import toast from "react-hot-toast"
 function Form() {
   const { data: schema, error, isLoading } = useForms("A")
   const [data, setData] = useState({})
-  const [result, setResult] = useState([])
+  const [result, setResult] = useState<{ data: []; isFirstPageLoad: boolean }>({
+    data: [],
+    isFirstPageLoad: true,
+  })
 
   const sendForm = async () => {
     try {
-      const result = await axios.post(`http://localhost:8080/form`, { ...data })
-      toast.success("Se ha guardado con exito")
+      const result = await axios.post<boolean>(`http://localhost:8080/form`, {
+        ...data,
+      })
+
+      result && toast.success("Se ha guardado con exito")
     } catch (err) {
       errorToast(err)
     }
@@ -35,10 +41,13 @@ function Form() {
       })
       .join("&")
 
-    const response: any = await axios(
+    const response: any = await axios<[string, unknown][]>(
       `http://localhost:8080/form?${queryString}`
     )
-    setResult(response.data)
+    setResult({
+      data: response.data,
+      isFirstPageLoad: false,
+    })
   }
   if (error) {
     throw new Error("No se pudo cargar el formulario solicitado")
@@ -82,9 +91,11 @@ function Form() {
           </div>
         </div>
       )}
-      <div className="my-6">
-        <FormConsult data={result} />
-      </div>
+      {!result.isFirstPageLoad && (
+        <div className="my-6 w-full">
+          <FormConsult data={result.data} />
+        </div>
+      )}
     </div>
   )
 }

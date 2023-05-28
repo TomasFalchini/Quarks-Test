@@ -3,6 +3,7 @@ import { FormDto, FormSchemaJson } from './dto/form.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, QueryOptions, Document, FilterQuery, Types } from 'mongoose';
 import { FormDocument } from './entities/form.entity';
+import { OtherFormSchemaJson } from './dto/otherForm.dto';
 
 @Injectable()
 export class FormService {
@@ -13,7 +14,7 @@ export class FormService {
       case 'A':
         return FormSchemaJson.FormDto;
       case 'B':
-        return;
+        return OtherFormSchemaJson.OtherFormDto;
     }
   }
 

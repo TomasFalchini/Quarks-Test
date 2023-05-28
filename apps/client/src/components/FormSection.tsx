@@ -6,7 +6,7 @@ import { TfiWrite } from "react-icons/tfi"
 function FormSection() {
   return (
     <section className="bg-transparent mb-10">
-      <div className="container  px-4 md:px-12 pt-12 pb-3 mx-auto flex flex-col md:flex-row gap-12 lg:gap-30 justify-around items-center">
+      <div className="container  px-4 md:px-12 pt-16 pb-3 mx-auto flex flex-col md:flex-row gap-6 md:gap-20 lg:gap-30 justify-center items-center">
         <InfoCard
           title="Complete el formulario"
           content="Complete el formulario con los campos solicitados, y guardelos en
